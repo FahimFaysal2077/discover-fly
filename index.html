@@ -32,7 +32,7 @@
 
     <!--Booking Section-->
     <main class="main-content container">
-        <div class="booking-form">
+        <div id="booking-area" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -55,26 +55,26 @@
             <div class="input-group f-class">
                 <div>
                     <label for="first-class-count">First Class(<span id="first-class-total">$150</span>)</label>
-                    <input id="first-class-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="first-class-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button onclick="handlePlaneTicketChange('first-class', true)" class="btn btn-default text-primary"><i
-                            class="fas fa-plus"></i></button>
-                    <button onclick="handlePlaneTicketChange('first-class', false)" class="btn btn-default text-primary"><i
-                            class="fas fa-minus"></i></button>
+                    <button onclick="handlePlaneTicketChange('first-class', true)"
+                        class="btn btn-default bg-success text-white"><i class="fas fa-plus"></i></button>
+                    <button onclick="handlePlaneTicketChange('first-class', false)"
+                        class="btn btn-default bg-danger text-white"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
 
             <div class="input-group f-class">
                 <div>
                     <label for="economy-class-count">Economy (<span id="economy-class-total">$100</span>)</label>
-                    <input id="economy-class-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="economy-class-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <button onclick="handlePlaneTicketChange('economy-class', true)" class="btn btn-default text-primary"><i
-                            class="fas fa-plus"></i></button>
-                    <button onclick="handlePlaneTicketChange('economy-class',false)" class="btn btn-default text-primary"><i
-                            class="fas fa-minus"></i></button>
+                    <button onclick="handlePlaneTicketChange('economy-class', true)"
+                        class="btn btn-default bg-success text-white"><i class="fas fa-plus"></i></button>
+                    <button onclick="handlePlaneTicketChange('economy-class',false)"
+                        class="btn btn-default bg-danger text-white"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="calculations">
@@ -83,7 +83,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p id="total-price">$500</p>
+                        <p id="total-price">$000</p>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p id="tax-amount">$50</p>
+                        <p id="tax-amount">$00</p>
                     </div>
                 </div>
                 <hr>
@@ -101,70 +101,114 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p id="grand-total">$550</p>
+                        <p id="grand-total">$000</p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="book-now" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
-                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt
+                nobise
                 voluptatibus quam</p>
         </div>
-        </section>
 
-        <!--Thank You-->
+        <div id="transaction-area">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="base-fare status">
+                        <h5>Base Fare</h5>
+                        <h2>$ <span id="current-base-fare">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="fee-surcharges status">
+                        <h5>Fee & Surcharges</h5>
+                        <h2>$ <span id="current-fee-surcharges">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="other-services status">
+                        <h5>Other Services</h5>
+                        <h2>$ <span id="current-other-services">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="total-amount status">
+                        <h5>Total Amount:</h5>
+                        <h2>$ <span id="current-total-amount">00</span></h2>
+                    </div>
+                </div>
+            </div>
+
+        <!-- JavaScript Section -->
         <script>
+                        //    < !-- Each Plane Ticket Price function -- >
 
-            function handlePlaneTicketChange(planeTicket, isIncrease) {
-                const planeTicketInput = document.getElementById(planeTicket + '-count')
-                const planeTicketCount = getInputValue(planeTicket);
-                let planeTicketNewCount = planeTicketCount;
-                if (isIncrease == true) {
-                    planeTicketNewCount = planeTicketCount + 1;
+
+                function handlePlaneTicketChange(planeTicket, isIncrease) {
+                    const planeTicketInput = document.getElementById(planeTicket + '-count')
+                    const planeTicketCount = getInputValue(planeTicket);
+                    let planeTicketNewCount = planeTicketCount;
+                    if (isIncrease == true) {
+                        planeTicketNewCount = planeTicketCount + 1;
+                    }
+                    if (isIncrease == false && planeTicketCount > 0) {
+                        planeTicketNewCount = planeTicketCount - 1;
+                    }
+                    planeTicketInput.value = planeTicketNewCount;
+                    let planeTicketTotal = 0;
+                    if (planeTicket == 'first-class') {
+                        planeTicketTotal = planeTicketNewCount * 150;
+                    }
+                    if (planeTicket == 'economy-class') {
+                        planeTicketTotal = planeTicketNewCount * 100;
+                    }
+
+                    document.getElementById(planeTicket + '-total').innerText = '$' + planeTicketTotal;
+                    calculateTotal();
                 }
-                if (isIncrease == false && planeTicketCount > 0) {
-                    planeTicketNewCount = planeTicketCount - 1;
-                }
-                planeTicketInput.value = planeTicketNewCount;
-                let planeTicketTotal = 0;
-                if(planeTicket == 'first-class'){
-                    planeTicketTotal = planeTicketNewCount * 150;
-                }
-                if(planeTicket == 'economy-class'){
-                    planeTicketTotal = planeTicketNewCount * 100;
-                }
-
-                document.getElementById(planeTicket + '-total').innerText = '$' + planeTicketTotal;
-                calculateTotal();
-            }
 
 
-            function calculateTotal(){
-                const firstClassCount = getInputValue('first-class')
-                const economyClassCount = getInputValue('economy-class');
+                                // < !--Total Amount Calculation Function-- >
 
-                const totalPrice = firstClassCount * 150 + economyClassCount * 100;
-                document.getElementById('total-price').innerText = '$' + totalPrice;
 
-                const tax = Math.round(totalPrice * 0.1);
-                document.getElementById('tax-amount').innerText = '$' + tax;
+                    function calculateTotal() {
+                        const firstClassCount = getInputValue('first-class')
+                        const economyClassCount = getInputValue('economy-class');
 
-                const grandTotal = totalPrice + tax;
-                document.getElementById('grand-total').innerText = '$' + grandTotal;
-            }
+                        const totalPrice = firstClassCount * 150 + economyClassCount * 100;
+                        document.getElementById('total-price').innerText = '$' + totalPrice;
 
-            function getInputValue(planeTicket){
+                        const tax = Math.round(totalPrice * 0.1);
+                        document.getElementById('tax-amount').innerText = '$' + tax;
+
+                        const grandTotal = totalPrice + tax;
+                        document.getElementById('grand-total').innerText = '$' + grandTotal;
+                    }
+
+            function getInputValue(planeTicket) {
                 const planeTicketInput = document.getElementById(planeTicket + '-count');
                 const planeTicketCount = parseInt(planeTicketInput.value);
                 return planeTicketCount;
             }
 
 
-</script>
+
+                       // <!-- Book Now Bonus Section Of Function -->
+            const bookingBtn = document.getElementById('book-now');
+            bookingBtn.addEventListener('click', function () {
+                const bookingArea = document.getElementById('booking-area');
+                bookingArea.style.display = 'none';
+                const transactionArea = document.getElementById('transaction-area');
+                transactionArea.style.display = 'block';
+            })
+
+        </script>
+    </main>
 </body>
 
 </html>

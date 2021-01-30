@@ -35,7 +35,9 @@ nav ul li a{
     text-transform: uppercase;
 }
 nav ul li a:hover, a.active{
-    background-color: #3352F2;
+    text-decoration: none;
+    color: white;
+    background-color:#3352F2;
     border-radius: 5px;
 }
 .main-content{
@@ -120,4 +122,31 @@ nav ul li a:hover, a.active{
 .amount{
     display: flex;
     justify-content: space-between;
+}
+
+
+
+/* < !-- Bonus CSS -- > */
+
+#transaction-area{
+    display: none;
+    margin-top: 150px;
+}
+.status{
+    margin: 10px 10px;
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+}
+.base-fare{
+    background-color: slateblue;
+}
+.fee-surcharges{
+    background-color: lightsalmon;
+}
+.other-services{
+    background-color: orange;
+}
+.total-amount{
+    background-color: palevioletred;
 }
